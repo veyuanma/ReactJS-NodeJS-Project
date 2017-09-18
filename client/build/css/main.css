@@ -1,0 +1,36 @@
+.jumbotron {
+  background-color: mediumaquamarine; 
+  color: white;
+  margin-bottom: 20px;
+  heihgt: 100px;
+}
+
+
+.jumbotron .container {
+  text-align: center; 
+  padding: 50px 0px;
+}
+
+
+.panel {
+	position: relative;
+	padding:20px;
+}
+
+.nav {
+	background-color: #F7F7F7;
+}
+
+.footer {
+	padding: 4rem 0;
+    margin-top: 4rem;
+    font-size: 100%;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+li {
+	display: inline-block;
+	margin-right: 25px;
+	margin-bottom: 10px;
+}
