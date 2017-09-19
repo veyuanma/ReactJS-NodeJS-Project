@@ -90,8 +90,8 @@ class LetterPage extends React.Component {
 		}
 		else {
 			return(
-				<div>
-					<button type="button" onClick={this.handleClick}>Pick One Letter</button>
+				<div className="container">
+					<button className="btn btn-info" onClick={this.handleClick}>Pick One Letter</button>
 					<br/>
 					<form onSubmit={this.handleSubmit}>	
 						<textarea className="newletter" value={this.state.value} onChange={this.handleChange} />

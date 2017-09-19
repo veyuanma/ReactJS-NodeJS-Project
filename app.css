@@ -2,3 +2,8 @@
   text-align: center;
 }
 
+.nav {
+	float: left;
+	height: 600px;
+}
+
