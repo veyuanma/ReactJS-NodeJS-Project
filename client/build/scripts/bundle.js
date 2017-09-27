@@ -72,7 +72,7 @@
 
 	var _QuickAccess2 = _interopRequireDefault(_QuickAccess);
 
-	__webpack_require__(280);
+	__webpack_require__(282);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26276,7 +26276,7 @@
 	        _react2.default.createElement(
 	          'form',
 	          { className: 'nameForm', onSubmit: this.handleSubmit },
-	          _react2.default.createElement('input', { type: 'text', ref: 'nickname', placeholder: 'Enter your nickname..' }),
+	          _react2.default.createElement('input', { type: 'text', ref: 'nickname', placeholder: 'Enter your nickname' }),
 	          _react2.default.createElement(
 	            'button',
 	            { className: 'btn btn-info' },
@@ -26405,7 +26405,7 @@
 	      return _react2.default.createElement(
 	        'form',
 	        { className: 'controls', onSubmit: this.handleSubmit },
-	        _react2.default.createElement('input', { className: 'messegebox', type: 'text', ref: 'input', placeholder: 'enter to send' }),
+	        _react2.default.createElement('input', { className: 'messegebox', type: 'text', ref: 'input', placeholder: 'Enter to send' }),
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'btn btn-info sendBtn' },
@@ -26460,7 +26460,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body {\n    margin: 0;\n    font-family: sans-serif;\n}\n.wrapper {\n    width: 500px;\n    height: 640px;\n    padding: 5px;\n    margin: 0 auto;\n    background-color: #ddd;\n}\n\n.banner {\n    height: 80px;\n    width: 100%;\n    background-color: #ddd;\n}\n\n.messegewindow {\n    height: 400px;\n    background-color: #fff;\n    overflow: auto;\n    padding: 2px;\n}\n\n.messege {\n    float: left;\n    height: 10px;\n    width: 100%;\n    padding: 5px;\n    margin: 5px;\n}\n\n.messegehistory {\n    float: left;\n}\n\n.messegebox {\n    width: 440px;\n    max-width: 440px;\n    height: 90px;\n    max-height: 90px;\n    float:left;\n}\n\n.controls {\n    height: 100px;\n    margin: 5px 0px;\n    position: relative;\n}\n\n\n.sendBtn {\n    width: 50px;\n    height: 96px;\n    float: right;\n}\n", ""]);
+	exports.push([module.id, "html, body {\n    margin: 0;\n    font-family: sans-serif;\n}\n.wrapper {\n    width: 500px;\n    height: 640px;\n    padding: 5px;\n    margin: 0 auto;\n    background-color: #e0f2f0;\n}\n\n.nameForm {\n    margin-bottom: 10px;\n    float: center;\n}\n\n.banner {\n    height: 80px;\n    width: 100%;\n    background-color: #e0f2f0;\n    border:2px;\n    margin-bottom: 10px;\n}\n\n.messegewindow {\n    height: 400px;\n    background-color: #fff;\n    overflow: auto;\n    padding: 2px;\n}\n\n.messege {\n    float: left;\n    height: 10px;\n    width: 100%;\n    padding: 5px;\n    margin: 5px;\n}\n\n.messegehistory {\n    float: left;\n}\n\n.messegebox {\n    width: 80%;\n    height: 90px;\n    float:left;\n    margin-top: 10px;\n}\n\n.controls {\n    height: 100px;\n    margin: 5px 0px;\n    position: relative;\n}\n\n\n.sendBtn {\n    float: right;\n    width: 20%px;\n    height: 90px;\n    position: relative;\n    margin-top: 10px;\n}\n", ""]);
 
 	// exports
 
@@ -33404,6 +33404,8 @@
 		value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -33433,40 +33435,31 @@
 			var _this = _possibleConstructorReturn(this, (LetterPage.__proto__ || Object.getPrototypeOf(LetterPage)).call(this, props));
 
 			_this.state = {
-				value: "",
-				letter: false,
-				message: ""
+				pick: false,
+				write: false,
+				message: "init"
 			};
 
-			_this.handleChange = _this.handleChange.bind(_this);
-			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			_this.handleClick = _this.handleClick.bind(_this);
-
+			_this.handlePickClick = _this.handlePickClick.bind(_this);
+			_this.handleWriteClick = _this.handleWriteClick.bind(_this);
+			_this.handleLetterSubmit = _this.handleLetterSubmit.bind(_this);
+			_this.handleLetterRequest = _this.handleLetterRequest.bind(_this);
+			_this.showState = _this.showState.bind(_this);
 			return _this;
 		}
 
 		_createClass(LetterPage, [{
-			key: 'handleChange',
-			value: function handleChange(event) {
-				this.setState({ value: event.target.value });
-			}
-		}, {
-			key: 'handleSubmit',
-			value: function handleSubmit(event) {
+			key: 'handleLetterSubmit',
+			value: function handleLetterSubmit(data) {
 
-				console.log('An letter submitted: ' + this.state.value);
-				event.preventDefault();
-
-				console.log(JSON.stringify({ letter: this.state.value }));
-
-				fetch('http://localhost:3000/newletter', {
+				fetch("http://localhost:3000/newletter", {
 					method: 'POST',
 					headers: {
 						'Accept': 'application/json',
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({
-						letter: this.state.value
+						letter: data
 					})
 				}).then(function (response) {
 					return response.json();
@@ -33475,77 +33468,146 @@
 				});
 			}
 		}, {
-			key: 'handleClick',
-			value: function handleClick() {
+			key: 'showState',
+			value: function showState() {
 				var _this2 = this;
 
-				fetch('http://localhost:3000/randomletter').then(function (response) {
-					return response.json();
-				}).then(function (msg) {
-					console.log("message is " + msg.let);
-					_this2.setState({
-						letter: !_this2.state.letter
-					});
-					_this2.setState({
-						message: msg.let
-					});
+				this.setState({ message: this.state.message }, function () {
+					console.log("in showState " + _this2.state.message);
 				});
 			}
 		}, {
-			key: 'renderLetter',
-			value: function renderLetter(message) {
+			key: 'handleLetterRequest',
+			value: function handleLetterRequest() {
+				var _this3 = this;
+
+				console.log("before fetch...");
+
+				var request = new Request('http://localhost:3000/randomletter', {
+					method: 'GET',
+					cache: false
+				});
+
+				fetch(request).then(function (res) {
+					return res.json();
+				}).then(function (responseJson) {
+					console.log("response string is " + responseJson.content);
+
+					_this3.setState({
+						message: responseJson.letter
+					});
+				});
+
+				this.showState();
+			}
+		}, {
+			key: 'handlePickClick',
+			value: function handlePickClick() {
+				var _this4 = this;
+
+				console.log("pick handler");
+				this.setState({ pick: true }, function () {
+					console.log("pick is clicked? " + _this4.state.pick);
+				});
+
+				this.handleLetterRequest();
+			}
+		}, {
+			key: 'handleWriteClick',
+			value: function handleWriteClick() {
+				console.log("in write handler");
+				this.setState({ write: true });
+			}
+		}, {
+			key: 'render',
+			value: function render() {
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
 						'button',
-						{ type: 'button', onClick: this.handleClick },
-						'Pick One Letter'
+						{ className: 'btn btn-info', onClick: this.handlePickClick },
+						'Pick one letter'
 					),
-					_react2.default.createElement('br', null),
 					_react2.default.createElement(
-						'p',
-						null,
-						this.state.message
-					)
+						'button',
+						{ className: 'btn btn-info', onClick: this.handleWriteClick },
+						'Write new Letter'
+					),
+					this.state.pick == true ? _react2.default.createElement(RandomLetter, { message: this.state.message }) : null,
+					this.state.write == true ? _react2.default.createElement(NewLetter, { onLetterSubmit: this.handleLetterSubmit }) : null
 				);
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				console.log("is the pick on clicked? " + this.state.letter);
-				if (this.state.letter) {
-					return _react2.default.createElement(
-						'div',
-						null,
-						this.renderLetter()
-					);
-				} else {
-					return _react2.default.createElement(
-						'div',
-						{ className: 'container' },
-						_react2.default.createElement(
-							'button',
-							{ className: 'btn btn-info', onClick: this.handleClick },
-							'Pick One Letter'
-						),
-						_react2.default.createElement('br', null),
-						_react2.default.createElement(
-							'form',
-							{ onSubmit: this.handleSubmit },
-							_react2.default.createElement('textarea', { className: 'newletter', value: this.state.value, onChange: this.handleChange }),
-							_react2.default.createElement(
-								'button',
-								{ className: 'btn btn-info' },
-								'Submit'
-							)
-						)
-					);
-				}
 			}
 		}]);
 
 		return LetterPage;
+	}(_react2.default.Component);
+
+	var RandomLetter = function (_React$Component2) {
+		_inherits(RandomLetter, _React$Component2);
+
+		function RandomLetter(props) {
+			_classCallCheck(this, RandomLetter);
+
+			return _possibleConstructorReturn(this, (RandomLetter.__proto__ || Object.getPrototypeOf(RandomLetter)).call(this, props));
+		}
+
+		_createClass(RandomLetter, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'randomletter' },
+					_react2.default.createElement(
+						'p',
+						null,
+						this.props.message
+					)
+				);
+			}
+		}]);
+
+		return RandomLetter;
+	}(_react2.default.Component);
+
+	var NewLetter = function (_React$Component3) {
+		_inherits(NewLetter, _React$Component3);
+
+		function NewLetter(props) {
+			_classCallCheck(this, NewLetter);
+
+			var _this6 = _possibleConstructorReturn(this, (NewLetter.__proto__ || Object.getPrototypeOf(NewLetter)).call(this, props));
+
+			_this6.handleSubmit = _this6.handleSubmit.bind(_this6);
+			return _this6;
+		}
+
+		_createClass(NewLetter, [{
+			key: 'handleSubmit',
+			value: function handleSubmit(e) {
+				e.preventDefault();
+				var msg = this.refs.content.value;
+				console.log("msg to submit " + msg);
+				console.log("type of onNewLetterSubmit " + _typeof(this.props.onLetterSubmit));
+				this.props.onLetterSubmit(msg);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'form',
+					{ onSubmit: this.handleSubmit, className: 'float-right' },
+					_react2.default.createElement('textarea', { className: 'newletter', ref: 'content', placeholder: 'Dear friend, Nice to meet you...' }),
+					_react2.default.createElement(
+						'button',
+						{ className: 'btn btn-info' },
+						'Submit'
+					)
+				);
+			}
+		}]);
+
+		return NewLetter;
 	}(_react2.default.Component);
 
 	exports.default = LetterPage;
@@ -33590,7 +33652,7 @@
 
 
 	// module
-	exports.push([module.id, ".newletter {\n\tpostion: relative;\n\tleft: 200px;\n\twidth: 700px;\n\theight: 500px;\n\talign: center;\n}\n\n.container {\n\tmargin-top: 10px;\n}", ""]);
+	exports.push([module.id, "\n.randomletter {\n\tposition: relative;\n\twidth: 50%;\n\theight: 50%;\n\tmargin-top: 10px;\n\tleft: 200px;\n\talign: center;\n\tborder-style: solid #e0f2f1;\n\tborder-radius: 10px;\n\tbackground-color:#e0f2f0;\n}\n\n.newletter {\n\tmargin-top: 10px;\n\tpostion: relative;\n\tleft: 200px;\n\twidth: 400px;\n\theight: 450px;\n\talign: center;\n\tborder-radius: 10px;\n\tbackground-color:#e0f2f0;\n\tpadding: 20px;\n}\n\n.container {\n\tmargin-top: 10px;\n}\n\n.btn {\n\tposition: relative;\n\tmargin-left: 10px;\n}", ""]);
 
 	// exports
 
@@ -33615,7 +33677,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	__webpack_require__(282);
+	__webpack_require__(280);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33700,7 +33762,7 @@
 						null,
 						_react2.default.createElement(
 							'a',
-							{ href: this.props.url },
+							{ href: this.props.url, target: '_blank' },
 							this.props.name
 						)
 					),
@@ -33735,8 +33797,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./node_modules/css-loader/index.js!./app.css", function() {
-				var newContent = require("!!./node_modules/css-loader/index.js!./app.css");
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!./QuickAccess.css", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!./QuickAccess.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -33754,7 +33816,7 @@
 
 
 	// module
-	exports.push([module.id, ".app {\n  text-align: center;\n}\n\n.nav {\n\tfloat: left;\n\theight: 600px;\n}\n\n", ""]);
+	exports.push([module.id, ".websites > .container {\n\tmargin-top: 20px;\n}", ""]);
 
 	// exports
 
@@ -33780,8 +33842,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!../../../node_modules/css-loader/index.js!./QuickAccess.css", function() {
-				var newContent = require("!!../../../node_modules/css-loader/index.js!./QuickAccess.css");
+			module.hot.accept("!!./node_modules/css-loader/index.js!./app.css", function() {
+				var newContent = require("!!./node_modules/css-loader/index.js!./app.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -33799,7 +33861,7 @@
 
 
 	// module
-	exports.push([module.id, ".websites > .container {\n\tmargin-top: 20px;\n}", ""]);
+	exports.push([module.id, ".app {\n  text-align: center;\n}\n\n.nav {\n\tfloat: left;\n\theight: 600px;\n}\n\n", ""]);
 
 	// exports
 

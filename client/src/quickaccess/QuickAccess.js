@@ -54,7 +54,7 @@ class Website extends React.Component {
 	render() {
 		return(
 			<div>
-				<h3><a href={this.props.url}>{this.props.name}</a></h3>
+				<h3><a href={this.props.url} target="_blank">{this.props.name}</a></h3>
 				<br/>
 			</div>
 		);

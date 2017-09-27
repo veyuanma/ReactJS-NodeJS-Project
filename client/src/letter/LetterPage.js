@@ -8,36 +8,28 @@ class LetterPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			value:"",
-			letter: false,
-			message: ""
+			pick: false,
+			write: false,
+			message: "init"
 		};
 
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleClick = this.handleClick.bind(this);
-		
+		this.handlePickClick = this.handlePickClick.bind(this);
+		this.handleWriteClick = this.handleWriteClick.bind(this);
+		this.handleLetterSubmit = this.handleLetterSubmit.bind(this);
+		this.handleLetterRequest = this.handleLetterRequest.bind(this);
+		this.showState = this.showState.bind(this);
 	}
 
-	handleChange(event) {
-		this.setState({value:event.target.value});
-	}
+	handleLetterSubmit(data) {
 
-	handleSubmit(event) {
-
-		console.log('An letter submitted: ' + this.state.value);
-		event.preventDefault();
-
-		console.log(JSON.stringify({letter: this.state.value}));
-
-		fetch('http://localhost:3000/newletter', {
+		fetch("http://localhost:3000/newletter", {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				letter: this.state.value
+				letter: data
 			})
 		})
 		.then((response) => response.json())
@@ -47,68 +39,114 @@ class LetterPage extends React.Component {
 
 	}
 
-	handleClick() {
-		fetch('http://localhost:3000/randomletter')
-		.then((response) => response.json())
-		.then((msg) => {
-			console.log("message is " + msg.let);
-			this.setState({
-				letter: !this.state.letter
-			});
-			this.setState({
-				message:msg.let
-			});
+	showState() {
+		this.setState({message: this.state.message}, () => {
+			console.log("in showState " + this.state.message);
 		});
+	}
+
+	handleLetterRequest() {
+
+		console.log("before fetch...");
+
+		let request = new Request('http://localhost:3000/randomletter', {
+      		method: 'GET',
+      		cache: false
+    	});
+
+    	fetch(request)
+      	.then((res) => res.json())
+      	.then((responseJson) => {
+      		console.log("response string is " + responseJson.content);
+      		
+        	this.setState({
+          		message:responseJson.letter
+        	});
+      	});
+
+     	
+
+      	this.showState();
 
 	}
 
-	renderLetter(message) {
+	handlePickClick() {
+		
+		console.log("pick handler");
+		this.setState({pick: true}, () => {
+			console.log("pick is clicked? " + this.state.pick);
+		});
+		
+		this.handleLetterRequest();
+
+	}
+
+	handleWriteClick() {
+		console.log("in write handler");
+		this.setState({write: true});
+	}
+
+	
+
+	render() {
 		return(
 			<div>
-				<button type="button" onClick={this.handleClick}>Pick One Letter</button>
+				<button className="btn btn-info" onClick={this.handlePickClick}>Pick one letter</button>
+				<button className="btn btn-info" onClick={this.handleWriteClick}>Write new Letter</button>
 				
-				<br/>
+				{(this.state.pick == true) ? <RandomLetter message={this.state.message} /> : null}
+				{(this.state.write == true) ? <NewLetter onLetterSubmit={this.handleLetterSubmit}/> : null}
 				
-				<p>{this.state.message}</p>
 			</div>
 		);
 	}
 
 	
+}
 
 
-	render() {
-		console.log("is the pick on clicked? " + this.state.letter);
-		if (this.state.letter) {
-			return(
-				<div>
-					{this.renderLetter()}
-				</div>
-
-			);
-			
-		}
-		else {
-			return(
-				<div className="container">
-					<button className="btn btn-info" onClick={this.handleClick}>Pick One Letter</button>
-					<br/>
-					<form onSubmit={this.handleSubmit}>	
-						<textarea className="newletter" value={this.state.value} onChange={this.handleChange} />
-						<button className="btn btn-info">Submit</button>
-					</form>	
-				</div>
-
-			);
-		}
-
-
-		
+class RandomLetter extends React.Component {
+	constructor(props) {
+		super(props);
 	}
 
 
+	render() {
+		return(
+			<div className="randomletter">
+				<p>{this.props.message}</p>
+			</div>
+			
+		);
+	}
+}
 
-	
+class NewLetter extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	handleSubmit(e) {
+		e.preventDefault();
+		const msg = this.refs.content.value;
+		console.log("msg to submit " + msg);
+		console.log("type of onNewLetterSubmit " + typeof(this.props.onLetterSubmit));
+		this.props.onLetterSubmit(msg);
+	}
+
+	render() {
+		return(
+			
+				<form onSubmit={this.handleSubmit} className="float-right">	
+					<textarea className="newletter" ref="content" placeholder="Dear friend, Nice to meet you..."/>
+					<button className="btn btn-info">Submit</button>
+				</form>	
+			
+		);
+		
+	}
 }
 
 export default LetterPage;

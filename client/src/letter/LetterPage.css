@@ -1,11 +1,33 @@
+
+.randomletter {
+	position: relative;
+	width: 50%;
+	height: 50%;
+	margin-top: 10px;
+	left: 200px;
+	align: center;
+	border-style: solid #e0f2f1;
+	border-radius: 10px;
+	background-color:#e0f2f0;
+}
+
 .newletter {
+	margin-top: 10px;
 	postion: relative;
 	left: 200px;
-	width: 700px;
-	height: 500px;
+	width: 400px;
+	height: 450px;
 	align: center;
+	border-radius: 10px;
+	background-color:#e0f2f0;
+	padding: 20px;
 }
 
 .container {
 	margin-top: 10px;
+}
+
+.btn {
+	position: relative;
+	margin-left: 10px;
 }

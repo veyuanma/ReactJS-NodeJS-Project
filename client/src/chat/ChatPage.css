@@ -7,13 +7,20 @@ html, body {
     height: 640px;
     padding: 5px;
     margin: 0 auto;
-    background-color: #ddd;
+    background-color: #e0f2f0;
+}
+
+.nameForm {
+    margin-bottom: 10px;
+    float: center;
 }
 
 .banner {
     height: 80px;
     width: 100%;
-    background-color: #ddd;
+    background-color: #e0f2f0;
+    border:2px;
+    margin-bottom: 10px;
 }
 
 .messegewindow {
@@ -36,11 +43,10 @@ html, body {
 }
 
 .messegebox {
-    width: 440px;
-    max-width: 440px;
+    width: 80%;
     height: 90px;
-    max-height: 90px;
     float:left;
+    margin-top: 10px;
 }
 
 .controls {
@@ -51,7 +57,9 @@ html, body {
 
 
 .sendBtn {
-    width: 50px;
-    height: 96px;
     float: right;
+    width: 20%px;
+    height: 90px;
+    position: relative;
+    margin-top: 10px;
 }

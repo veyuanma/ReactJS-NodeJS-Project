@@ -2,6 +2,9 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var path = require('path');
 var cors = require('cors');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://user:user@ds149724.mlab.com:49724/letter');
 
 var app = express();
 
@@ -11,52 +14,83 @@ console.log("dir name is " + __dirname);
 //app.set('views', path.join(__dirname, './client/build/'));
 //app.set('view engine', 'jade');
 //app.use('/static', express.static(path.join(__dirname, './client/build/static/')));
-app.use('/', express.static(path.join(__dirname, './client/build')));
+
+app.use('/', express.static(path.join(__dirname, 'client/build')));
 
 
+const dir = path.join(__dirname, 'client/build');
+
+app.use(express.static(dir));
+
+
+//for socket io use
 var users = [];
 
 
-var arr = [`There is another sky,\r\n
-Ever serene and fair,\r\n
-And there is another sunshine,\r\n
-Though it be darkness there;
-Never mind faded forests, Austin,
-Never mind silent fields -
-Here is a little forest,
-Whose leaf is ever green;
-Here is a brighter garden,
-Where not a frost has been;
-In its unfading flowers
-I hear the bright bee hum:
-Prithee, my brother,
-Into my garden come!
-`, 
-`I can write no stately proem
-As a prelude to my lay;
-From a poet to a poem
-I would dare to say.
+const LetterSchema = mongoose.Schema({
+    id: Number,
+    letter: String
+});
+const LetterModel = mongoose.model('LetterModel', LetterSchema); 
 
-For if of these fallen petals
-One to you seem fair,
-Love will waft it till it settles
-On your hair.
 
-And when wind and winter harden
-All the loveless land,
-It will whisper of the garden,
-You will understand.
-`, 
-`For books are more than books, 
-they are the life, the very heart and core of ages past, 
-the reason why men worked and died, the essence and quintessence of their lives
-`];
+
+function getRandomLetter() {
+    
+    return new Promise((resolve, reject) => {
+
+        LetterModel.count({}, function(err, num) {
+            if (err) {
+                console.log("Fail to count in get...");
+            }
+            else {
+                var rand = Math.floor(Math.random() * num);
+                console.log("random id is ..." + rand);
+
+                LetterModel.findOne().skip(rand).exec(function(err, obj) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        console.log("obj is ..." + obj);
+                        resolve(obj);
+                    }
+                });
+            }
+            
+        });
+    });
+}
+
+
+function postNewLetter(newletter) {
+
+    return new Promise((resolve, reject) => {
+        
+        
+        console.log("type of newletter is ..." + typeof(newletter));
+
+        LetterModel.count({}, function(err, num) {
+
+            console.log("id is ....." + (num + 1));
+
+            var mongoLetter = new LetterModel({id: num + 1, letter: newletter});
+            mongoLetter.save(function(err, num) {
+                if (err) {
+                    console.log("Fail to save....");
+                }
+                else {
+                    resolve(mongoLetter);
+                }
+                
+            });
+        });
+        
+    });
+}
 
 
 
 app.use(cors());
-
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -67,58 +101,77 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/*', function(req, res, next) {
-
-  res.sendFile("index.html", { root:path.join(__dirname, './client/build/')});
-
-});
 
 
-function getRandomLetter(arr) {
-    var len = arr.length;
-    var random = Math.floor(Math.random() * len);
-    console.log("random is " + random);
-    return arr[random];
-}
 
-app.post('/newletter', function(req, res) {
-	console.log(req.body);
-	arr.push(req.body["letter"])
-	console.log(arr.length);
-	return res.json({
-		status: "succeed"
-	});
+
+
+
+// app.get('/*', function(req, res, next) {
+//   res.sendFile("index.html", { root:path.join(__dirname, './client/build/')});
+// });
+
+
+// app.post("/newletter", function(req, res) {
+// 	//console.log("request body is " + req.body);
+//     console.log("letter is " + req.body["letter"]);
+// 	arr.push(req.body["letter"])
+// 	console.log("array length is " + arr.length);
+//     console.log("in post new letter");
+// 	return res.json({
+// 		status: "succeed"
+// 	});
+// })
+
+
+app.post("/newletter", function(req, res) {
+    console.log("the letter to post is ...." + req.body["letter"]);
+    postNewLetter(req.body["letter"]);
+    // .then(function(letter) {
+        //res.json(letter);
+        return res.json({
+            status: "succeed"
+        })
+    //}
+    // , function(error) {
+    //     res.status(400).send('Fail to post');
+    // });
 })
 
-app.get('/randomletter', function(req, res) {
 
-	var letter = getRandomLetter(arr);
 
-	console.log(typeof(letter));
+// app.get("/randomletter", function(req, res) {
 
-	return res.json({
-		let: letter 
-	});
+//     console.log("get here???");
+	
+//     var arr = [
+//     {
+//         'author': 'Jane Austin',
+//         'content': 'pride and prejudice'
+//     },
+//     {
+//         'author': 'Matt Demon',
+//         'content': 'good will hunting'
+//     }];
+//     res.json(arr[0]);
+// })
+
+
+app.get("/randomletter", function(req, res) {
+
+    getRandomLetter().then(obj => res.json(obj));
 })
+
+
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+
 io.set('origins', '*:*');
 
 server.listen(3000, () => {
     console.log("server started on port 3000");
 });
-
-// var server = app.listen(3000, function() {
-//     console.log("server started on port 3000");
-// })
-
-
-
-// io.on('connection', (socket) => {
-//     console.log('A user just joined on', socket.id);
-// });
-
 
 
 io.on('connection', (socket) => {

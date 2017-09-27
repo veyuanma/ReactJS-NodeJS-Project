@@ -110,7 +110,7 @@ class LoginForm extends React.Component {
     return(
       <div>
         <form className="nameForm" onSubmit={this.handleSubmit}>
-          <input type="text" ref="nickname" placeholder="Enter your nickname.." />
+          <input type="text" ref="nickname" placeholder="Enter your nickname" />
           <button className="btn btn-info">Submit</button>
         </form>
       </div>
@@ -183,7 +183,7 @@ class MessageBox extends React.Component {
   render() {
     return(
       <form className="controls" onSubmit={this.handleSubmit}>
-        <input className="messegebox"type="text" ref="input" placeholder="enter to send"/>
+        <input className="messegebox" type="text" ref="input" placeholder="Enter to send"/>
         <button className="btn btn-info sendBtn">Send</button>
       </form>
     );

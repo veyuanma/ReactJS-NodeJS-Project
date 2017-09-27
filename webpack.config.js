@@ -1,8 +1,5 @@
 var path = require('path');
-
-var APP_DIR = path.join(__dirname, './client/src');
-
-console.log("curr dir is " + __dirname);
+var webpack = require('webpack');
 
 module.exports = {
     entry: "./app.js",
@@ -13,7 +10,7 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.css$/, loader: "style!css" },
-            { test: /.js$/, loader : 'babel-loader' }
+            { test: /\.js$/, loader : 'babel-loader' }
         ]
     }
 };
