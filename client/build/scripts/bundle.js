@@ -72,7 +72,7 @@
 
 	var _QuickAccess2 = _interopRequireDefault(_QuickAccess);
 
-	__webpack_require__(282);
+	__webpack_require__(286);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -124,7 +124,7 @@
 	            _react2.default.createElement(
 	              _reactRouterDom.Link,
 	              { to: '/QuickAccess' },
-	              'Quick Access Page'
+	              'Quick Access'
 	            )
 	          )
 	        ),
@@ -26408,7 +26408,7 @@
 	        _react2.default.createElement('input', { className: 'messegebox', type: 'text', ref: 'input', placeholder: 'Enter to send' }),
 	        _react2.default.createElement(
 	          'button',
-	          { className: 'btn btn-info sendBtn' },
+	          { className: 'btn btn-info' },
 	          'Send'
 	        )
 	      );
@@ -26460,7 +26460,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body {\n    margin: 0;\n    font-family: sans-serif;\n}\n.wrapper {\n    width: 500px;\n    height: 640px;\n    padding: 5px;\n    margin: 0 auto;\n    background-color: #e0f2f0;\n}\n\n.nameForm {\n    margin-bottom: 10px;\n    float: center;\n}\n\n.banner {\n    height: 80px;\n    width: 100%;\n    background-color: #e0f2f0;\n    border:2px;\n    margin-bottom: 10px;\n}\n\n.messegewindow {\n    height: 400px;\n    background-color: #fff;\n    overflow: auto;\n    padding: 2px;\n}\n\n.messege {\n    float: left;\n    height: 10px;\n    width: 100%;\n    padding: 5px;\n    margin: 5px;\n}\n\n.messegehistory {\n    float: left;\n}\n\n.messegebox {\n    width: 80%;\n    height: 90px;\n    float:left;\n    margin-top: 10px;\n}\n\n.controls {\n    height: 100px;\n    margin: 5px 0px;\n    position: relative;\n}\n\n\n.sendBtn {\n    float: right;\n    width: 20%px;\n    height: 90px;\n    position: relative;\n    margin-top: 10px;\n}\n", ""]);
+	exports.push([module.id, "\n\n.chatpage {\n    width: 60%;\n    height:100%;\n    float:center;\n    position: relative;\n    margin-left:25%;\n}\n\n.wrapper {\n    width: 70%;\n    height: 100%;\n    padding: 5px;\n    margin: 0 auto;\n    background-color: #e0f2f0;\n}\n\n.nameForm {\n    margin-bottom: 10px;\n    float: center;\n}\n\n.nameForm .btn {\n    margin-left:5px;\n}\n\n.banner {\n    height: 80px;\n    width: 100%;\n    background-color: #e0f2f0;\n    border:2px;\n    margin-bottom: 10px;\n}\n\n.messegewindow {\n    height: 400px;\n    background-color: #fff;\n    overflow: auto;\n    padding: 2px;\n}\n\n.messege {\n    float: left;\n    height: 10px;\n    width: 100%;\n    padding: 5px;\n    margin: 5px;\n}\n\n.messegehistory {\n    float: left;\n}\n\n.controls {\n    height: 100px;\n    margin: 5px 0px;\n    position: relative;\n}\n\n.messegebox {\n    width: 80%;\n    height: 90px;\n    float:left;\n    margin-top: 10px;\n}\n\n\n.controls .btn {\n    height: 90px;\n    margin-top: 10px;\n    margin-left:10px;\n}\n", ""]);
 
 	// exports
 
@@ -33523,19 +33523,35 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'letterpage' },
 					_react2.default.createElement(
 						'button',
-						{ className: 'btn btn-info', onClick: this.handlePickClick },
+						{ className: 'btn btn-info pickbtn', onClick: this.handlePickClick },
 						'Pick one letter'
 					),
 					_react2.default.createElement(
 						'button',
-						{ className: 'btn btn-info', onClick: this.handleWriteClick },
+						{ className: 'btn btn-info writebtn', onClick: this.handleWriteClick },
 						'Write new Letter'
 					),
-					this.state.pick == true ? _react2.default.createElement(RandomLetter, { message: this.state.message }) : null,
-					this.state.write == true ? _react2.default.createElement(NewLetter, { onLetterSubmit: this.handleLetterSubmit }) : null
+					_react2.default.createElement(
+						'div',
+						{ className: 'container' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'row' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'col' },
+								this.state.pick == true ? _react2.default.createElement(RandomLetter, { message: this.state.message }) : null
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'col newletter' },
+								this.state.write == true ? _react2.default.createElement(NewLetter, { onLetterSubmit: this.handleLetterSubmit }) : null
+							)
+						)
+					)
 				);
 			}
 		}]);
@@ -33559,7 +33575,7 @@
 					'div',
 					{ className: 'randomletter' },
 					_react2.default.createElement(
-						'p',
+						'div',
 						null,
 						this.props.message
 					)
@@ -33596,8 +33612,8 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'form',
-					{ onSubmit: this.handleSubmit, className: 'float-right' },
-					_react2.default.createElement('textarea', { className: 'newletter', ref: 'content', placeholder: 'Dear friend, Nice to meet you...' }),
+					{ onSubmit: this.handleSubmit },
+					_react2.default.createElement('textarea', { className: 'lettertext', ref: 'content', placeholder: 'Dear friend, Nice to meet you...' }),
 					_react2.default.createElement(
 						'button',
 						{ className: 'btn btn-info' },
@@ -33652,7 +33668,7 @@
 
 
 	// module
-	exports.push([module.id, "\n.randomletter {\n\tposition: relative;\n\twidth: 50%;\n\theight: 50%;\n\tmargin-top: 10px;\n\tleft: 200px;\n\talign: center;\n\tborder-style: solid #e0f2f1;\n\tborder-radius: 10px;\n\tbackground-color:#e0f2f0;\n}\n\n.newletter {\n\tmargin-top: 10px;\n\tpostion: relative;\n\tleft: 200px;\n\twidth: 400px;\n\theight: 450px;\n\talign: center;\n\tborder-radius: 10px;\n\tbackground-color:#e0f2f0;\n\tpadding: 20px;\n}\n\n.container {\n\tmargin-top: 10px;\n}\n\n.btn {\n\tposition: relative;\n\tmargin-left: 10px;\n}", ""]);
+	exports.push([module.id, ".container {\n\tmargin-top:50px;\n}\n\n.pickbtn {\n\tfloat:left;\n\tmargin-left: 200px;\n\tmargin-top:30px;\n}\n\n.writebtn {\n\tmargin-left:100px;\n\tmargin-top:30px;\n}\n\n.randomletter {\n\tdisplay: inline-block;\n\twidth:40%;\n\theight:400px;\n\tborder-radius: 10px;\n\tborder-color: #a0e1aa;\n\tbackground-color:#e0f2f0;\n\tpadding:20px;\n\tfloat:left;\n\tmargin-left:50px;\n}\n\n.newletter {\n\tdisplay: inline-block;\n\twidth:40%;\n\theight:400px;\n\tmargin-left:50px;\n\tfloat:right;\n}\n\n.lettertext {\n\theight:400px;\n\twidth:100%;\n\tborder-radius: 10px;\n\tborder-color: #a0e1aa;\n\tbackground-color:#e0f2f0;\n\tpadding:20px;\n\t\n}\n\n.container {\n\tmargin-top: 10px;\n}\n\n\n", ""]);
 
 	// exports
 
@@ -33687,7 +33703,23 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var links = [{ "name": "React", "url": "https://facebook.github.io/react/" }, { "name": "Airbnb", "url": "https://zh.airbnb.com/" }, { "name": "CNN 10", "url": "http://www.cnn.com/cnn10" }, { "name": "Regular Expression", "url": "https://regex101.com/" }, { "name": "YouTube", "url": "https://www.youtube.com/" }];
+	var links = [{ "name": "React",
+		"url": "https://facebook.github.io/react/",
+		"description": "a JavaScript library for building user interfaces",
+		"image": './logos/react.png'
+	}, { "name": "Airbnb",
+		"url": "https://zh.airbnb.com/",
+		"description": "an online marketplace and hospitality service, enabling people to lease or rent short-term lodging",
+		"image": './logos/airbnb.png'
+	}, { "name": "CNN 10",
+		"url": "http://www.cnn.com/cnn10",
+		"description": "10-minute news show that appears as a daily digital video on CNN.com",
+		"image": './logos/cnn.png'
+	}, { "name": "YouTube",
+		"url": "https://www.youtube.com/",
+		"description": "an American video-sharing website",
+		"image": './logos/youtube.jpg'
+	}];
 
 	var QuickAccess = function (_React$Component) {
 		_inherits(QuickAccess, _React$Component);
@@ -33724,16 +33756,144 @@
 		_createClass(WebsiteList, [{
 			key: 'render',
 			value: function render() {
-				var websites = this.props.links.map(function (e) {
-					return _react2.default.createElement(Website, { name: e.name, url: e.url });
-				});
+
 				return _react2.default.createElement(
 					'div',
-					{ className: 'websites' },
+					null,
 					_react2.default.createElement(
 						'div',
-						{ className: 'container' },
-						websites
+						{ className: 'item' },
+						_react2.default.createElement('img', { className: 'logo', src: 'https://facebook.github.io/react/img/logo_og.png', alt: this.props.links[0].name }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'weblink' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								_react2.default.createElement(
+									'a',
+									{ href: this.props.links[0].url, target: '_blank' },
+									this.props.links[0].name
+								)
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								_react2.default.createElement(
+									'span',
+									{ className: 'label label-success' },
+									'Web'
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'item' },
+						_react2.default.createElement('img', { className: 'logo', src: 'https://a0.muscache.com/airbnb/static/logos/belo-1200x630-a0d52af6aba9463c82017da13912f19f.png', alt: this.props.links[1].name }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'weblink' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								_react2.default.createElement(
+									'a',
+									{ href: this.props.links[1].url, target: '_blank' },
+									this.props.links[1].name
+								)
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								_react2.default.createElement(
+									'span',
+									{ className: 'label label-info' },
+									'Travel'
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'item' },
+						_react2.default.createElement('img', { className: 'logo', src: 'http://i.cdn.cnn.com/cnn/.e/img/3.0/global/misc/cnn-logo.png', alt: this.props.links[2].name }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'weblink' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								_react2.default.createElement(
+									'a',
+									{ href: this.props.links[2].url, target: '_blank' },
+									this.props.links[2].name
+								)
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								_react2.default.createElement(
+									'span',
+									{ className: 'label label-warning' },
+									'News'
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'item' },
+						_react2.default.createElement('img', { className: 'logo', src: 'http://i0.kym-cdn.com/entries/icons/original/000/004/562/maxresdefault.jpg', alt: this.props.links[3].name }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'weblink' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								_react2.default.createElement(
+									'a',
+									{ href: this.props.links[3].url, target: '_blank' },
+									this.props.links[3].name
+								)
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								_react2.default.createElement(
+									'span',
+									{ className: 'label label-danger' },
+									'Fun'
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'item' },
+						_react2.default.createElement('img', { className: 'logo', src: 'http://kintudesigns.com/wp-content/uploads/2016/11/angularjs.jpg', alt: 'angularjs' }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'weblink' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								_react2.default.createElement(
+									'a',
+									{ href: 'https://angularjs.org/', target: '_blank' },
+									'Angular'
+								)
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								_react2.default.createElement(
+									'span',
+									{ className: 'label label-success' },
+									'Web'
+								)
+							)
+						)
 					)
 				);
 			}
@@ -33756,14 +33916,24 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'website' },
+					_react2.default.createElement('img', { className: 'logo', src: __webpack_require__(282), alt: this.props.name }),
 					_react2.default.createElement(
-						'h3',
-						null,
+						'div',
+						{ className: 'webdetail' },
 						_react2.default.createElement(
-							'a',
-							{ href: this.props.url, target: '_blank' },
-							this.props.name
+							'h3',
+							null,
+							_react2.default.createElement(
+								'a',
+								{ href: this.props.url, target: '_blank' },
+								this.props.name
+							)
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							this.props.description
 						)
 					),
 					_react2.default.createElement('br', null)
@@ -33816,19 +33986,28 @@
 
 
 	// module
-	exports.push([module.id, ".websites > .container {\n\tmargin-top: 20px;\n}", ""]);
+	exports.push([module.id, "\n\n.logo {\n  display: inline-block;\n  float: left;\n  \n  width: 13%;\n  height:100px;\n}\n\n\n\n.item {\n\theight: 100px;\n\tmargin-top:30px;\n\tmargin-left:50px;\n\t\n}\n\n.weblink {\n\tposition: relative;\n\tdisplay: inline-block;\n\theight: 100px;\n\tfloat: left;\n\tmargin-left: 30px;\n}\n\nimg {\n\tmargin-left: 100px;\n}\n\n.weblink > h3 {\n\tdisplay: inline-block;\n\tposition: relative;\n\t\n}\n\n.weblink > a {\n\tposition: relative;\n\tdisplay: inline-block;\n\t\n}\n\nspan {\n\tfloat: left;\n}\n\n", ""]);
 
 	// exports
 
 
 /***/ }),
 /* 282 */
+/***/ (function(module, exports) {
+
+	module.exports = "data:image/png;base64,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"
+
+/***/ }),
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(283);
+	var content = __webpack_require__(287);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -33853,7 +34032,7 @@
 	}
 
 /***/ }),
-/* 283 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(228)(undefined);
@@ -33861,7 +34040,7 @@
 
 
 	// module
-	exports.push([module.id, ".app {\n  text-align: center;\n}\n\n.nav {\n\tfloat: left;\n\theight: 600px;\n}\n\n", ""]);
+	exports.push([module.id, ".app {\n  text-align: center;\n  height:100%;\n  width:100%;\n}\n\n.nav {\n\tfloat:left;\n\theight: 650px;\n\twidth: 200px;\n\tbackground-color:#f7f7f7;\n\tmargin-right: 10px;\n\tdisplay: inline-block;\n}\n\n.nav-item {\n\twidth:100%;\n\tmargin-top: 70px;\n}\n\n.nav li {\n\twidth:100%;\n\ttext-align: center;\n\tfont-size: 20px;\n}\n\n", ""]);
 
 	// exports
 

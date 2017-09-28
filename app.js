@@ -21,7 +21,7 @@ class App extends React.Component {
           <ul className="nav">
             <li className="nav-item active"><Link to="/ChatPage">Chat Page</Link></li>
             <li className="nav-item active"><Link to="/LetterPage">Letter Page</Link></li>
-            <li className="nav-item active"><Link to="/QuickAccess">Quick Access Page</Link></li>
+            <li className="nav-item active"><Link to="/QuickAccess">Quick Access</Link></li>
           </ul>
 
           <Switch>

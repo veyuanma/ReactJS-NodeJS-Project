@@ -90,12 +90,21 @@ class LetterPage extends React.Component {
 
 	render() {
 		return(
-			<div>
-				<button className="btn btn-info" onClick={this.handlePickClick}>Pick one letter</button>
-				<button className="btn btn-info" onClick={this.handleWriteClick}>Write new Letter</button>
+			<div className="letterpage">
+
+				<button className="btn btn-info pickbtn" onClick={this.handlePickClick}>Pick one letter</button>
+				<button className="btn btn-info writebtn" onClick={this.handleWriteClick}>Write new Letter</button>
 				
-				{(this.state.pick == true) ? <RandomLetter message={this.state.message} /> : null}
-				{(this.state.write == true) ? <NewLetter onLetterSubmit={this.handleLetterSubmit}/> : null}
+			<div className="container">
+			<div className="row">
+				<div className="col">
+					{(this.state.pick == true) ? <RandomLetter message={this.state.message} /> : null}
+				</div>
+				<div className="col newletter">
+					{(this.state.write == true) ? <NewLetter onLetterSubmit={this.handleLetterSubmit}/> : null}
+				</div>
+			</div>
+			</div>
 				
 			</div>
 		);
@@ -114,7 +123,7 @@ class RandomLetter extends React.Component {
 	render() {
 		return(
 			<div className="randomletter">
-				<p>{this.props.message}</p>
+				<div>{this.props.message}</div>
 			</div>
 			
 		);
@@ -139,8 +148,8 @@ class NewLetter extends React.Component {
 	render() {
 		return(
 			
-				<form onSubmit={this.handleSubmit} className="float-right">	
-					<textarea className="newletter" ref="content" placeholder="Dear friend, Nice to meet you..."/>
+				<form onSubmit={this.handleSubmit}>	
+					<textarea className="lettertext" ref="content" placeholder="Dear friend, Nice to meet you..."/>
 					<button className="btn btn-info">Submit</button>
 				</form>	
 			

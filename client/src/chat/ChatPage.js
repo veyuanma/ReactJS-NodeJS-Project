@@ -184,7 +184,7 @@ class MessageBox extends React.Component {
     return(
       <form className="controls" onSubmit={this.handleSubmit}>
         <input className="messegebox" type="text" ref="input" placeholder="Enter to send"/>
-        <button className="btn btn-info sendBtn">Send</button>
+        <button className="btn btn-info">Send</button>
       </form>
     );
   }
